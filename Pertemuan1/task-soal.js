@@ -46,6 +46,8 @@ const all = async () => {
 const store = async (user) => {
   await delay(300);
   // isi di sini
+  const tambahUser = await users.push({name: "Andika", age: 25, major: "Ekonomi"});
+  console.log(tambahUser);
 };
 
 /**
