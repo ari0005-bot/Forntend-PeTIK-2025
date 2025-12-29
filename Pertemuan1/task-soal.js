@@ -29,6 +29,9 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const all = async () => {
   await delay(300);
   // isi di sini
+  for (const user of users) {
+    console.log(user);
+  }
 };
 
 /**
