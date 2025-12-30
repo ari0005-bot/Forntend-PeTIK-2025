@@ -7,7 +7,7 @@
 const users = [
   {name: "Agus", age: 20, major: "Hukum"},
   {name: "Asep", age: 19, major: "Kedokteran"},
-  {name: "Anang", age: 22, major: "Teknik Mesin"},
+  {name: "Nurul Bariyah", age: 22, major: "Teknik Mesin"},
   {name: "Ahmad", age: 23, major: "Ilmu Komunikasi"},
   {name: "Alwan", age: 24, major: "Informatika"},
 ];
@@ -62,8 +62,9 @@ const store = async (user) => {
 const update = async (index, user) => {
   await delay(300);
   // isi di sini
+  users.splice(index,1, user);
+  await all();
 };
-
 /**
  * TODO 5
  * Buat function destroy (ASYNC):
@@ -76,8 +77,9 @@ const update = async (index, user) => {
 const destroy = async (index) => {
   await delay(300);
   // isi di sini
+  users.splice(index, 1);
+  await all();
 };
-
 /**
  * Function main.
  * Jangan edit atau hapus function main.
