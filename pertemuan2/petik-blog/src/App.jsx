@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Header from "./Components/Header/Header";
+import Footer from "./Components/Footer/Footer";
+import Profile from "./Components/Profile/profile";
+import Customer from "./Components/Customer/Customer";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const a = 10;
+  const b = 20;
+  console.log(a + b);
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {/* <Header />
+      <h1>To-di List :</h1>
+      <ol>
+        <li>Mengerjakan tugas fornt end</li>
+        <li>Mempelajari tutorial react js</li>
+        <li>Murojaah</li>
+      </ol>
+      <Profile nama="Hanzhallah" alamat="Jakarta" umur={19} />
+      <Profile nama="Zulyan" alamat="Bandung" umur={18} />
+      <img src="https://picsum.photos/200/300" alt="gambar" />
+      <Footer nama="Pragos" /> */}
+      <h2>Our Customer</h2>
+      <Customer nama={"Ucup"} alamat={"Depok"} membership={"Premium"}/>
+      <Customer nama={"Agus"} alamat={"Jakarta"} membership={"Gold"}/>
+      <Customer nama={"Pragos"} alamat={"Bandung"} membership={"Silver"}/>
+      <Customer nama={"Beli"} alamat={"Palembang"} membership={"Non Member"}/>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
