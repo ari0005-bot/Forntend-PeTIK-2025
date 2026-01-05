@@ -1,0 +1,77 @@
+.card2 {
+  margin: 10px auto;
+  width: 250px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  height: 310px;
+  border-radius: 10px;
+}
+
+.card-head-2 {
+  background-color: #111111;
+  color: white;
+  display: block;
+  border-radius: 10px 10px 0px 0px;
+  text-align: left;
+  padding: 20px;
+}
+
+.card-head2 {
+  background-color: #7d32a0;
+  color: white;
+  display: block;
+  border-radius: 10px 10px 0px 0px;
+  text-align: left;
+  padding: 20px;
+}
+
+.card-body ul {
+  padding: 0;
+}
+
+.card-body ul li {
+  position: relative;
+  padding-left: 30px;
+  margin: 14px 0;
+  font-size: 15px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.thh {
+  font-size: 1.8rem;
+}
+
+.card-head2 span {
+  font-size: 15px;
+}
+
+.card-body tr td ul {
+  list-style: none;
+  text-align: left;
+}
+
+.btn1 {
+  background-color: rgb(208, 226, 243);
+  color: #7d32a0;
+  border-radius: 15px;
+  width: 200px;
+}
+
+.btn1:hover {
+  background-color: #7d32a0;
+  color: rgb(255, 254, 255);
+}
+
+.btn2 {
+  background-color: #7d32a0;
+  color: rgb(255, 254, 255);
+  border-radius: 15px;
+  width: 200px;
+}
+
+.btn2:hover {
+  background-color: rgb(255, 254, 255);
+  color: #7d32a0;
+}
