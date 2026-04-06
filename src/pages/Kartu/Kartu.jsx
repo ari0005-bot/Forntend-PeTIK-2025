@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { NavLink, useOutletContext } from "react-router-dom";
 
-const Produk = () => {
-  const [produk, setProduk] = useState([]);
+const Kartu = () => {
+  const [kartu, setkartu] = useState([]);
   const [currentpage, setCurrentPage] = useState(1);
   const { search } = useOutletContext();
 
@@ -13,15 +13,15 @@ const Produk = () => {
 
   const getProduct = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/produk`);
-      setProduk(result.data.data);
+      const result = await axios.get(`${import.meta.env.VITE_API_URL}/kartu`);
+      setkartu(result.data.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const filterData = produk.filter((item) =>
-    item.nama_barang?.toLowerCase().includes(search.toLowerCase()),
+  const filterData = kartu.filter((item) =>
+    item.nama?.toLowerCase().includes(search.toLowerCase()),
   );
 
   const ITEMS_PER_PAGE = 10;
@@ -37,11 +37,11 @@ const Produk = () => {
   }, [search]);
 
   const handleDelete = async (uuid) => {
-    const msg = window.confirm("Apakah yakin ingin menghapus produk ini?");
+    const msg = window.confirm("Apakah yakin ingin menghapus kartu ini?");
     if (!msg) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/produk/${uuid}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/kartu/${uuid}`);
       getProduct();
     } catch (error) {
       console.log(error);
@@ -51,8 +51,8 @@ const Produk = () => {
   return (
     <div>
       <div className="kategori-header">
-        <h3>Daftar Produk</h3>
-        <NavLink to={"/dashboard/produk/add"}>Tambah Produk</NavLink>
+        <h3>Daftar kartu</h3>
+        <NavLink to={"/dashboard/kartu/add"}>Tambah kartu</NavLink>
       </div>
 
       <div className="table-wrapper">
@@ -60,12 +60,11 @@ const Produk = () => {
           <thead>
             <tr>
               <th>No</th>
-              <th>Nama Barang</th>
-              <th>Stok</th>
-              <th>Minimal Stok</th>
-              <th>Kategori</th>
+              <th>Kode</th>
+              <th>Nama</th>
+              <th>Diskon</th>
+              <th>Iuran</th>
               <th>Gambar</th>
-              <th>Aksi</th>
             </tr>
           </thead>
 
@@ -74,10 +73,10 @@ const Produk = () => {
               paginatedData.map((item, index) => (
                 <tr key={item.uuid}>
                   <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
-                  <td>{item.nama_barang}</td>
-                  <td>{item.stok}</td>
-                  <td>{item.min_stok}</td>
-                  <td>{item.jenis_produk_id}</td>
+                  <td>{item.kode}</td>
+                  <td>{item.nama}</td>
+                  <td>{item.diskon}</td>
+                  <td>{item.iuran}</td>
                   <td>
                     <img src={item.url} alt="gambar" width={100} />
                   </td>
@@ -132,4 +131,4 @@ const Produk = () => {
   );
 };
 
-export default Produk;
+export default Kartu;

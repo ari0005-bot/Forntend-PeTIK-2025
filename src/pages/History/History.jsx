@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { NavLink, useOutletContext } from "react-router-dom";
 
-const Produk = () => {
-  const [produk, setProduk] = useState([]);
+const History = () => {
+  const [history, sethistory] = useState([]);
   const [currentpage, setCurrentPage] = useState(1);
   const { search } = useOutletContext();
 
@@ -13,15 +13,15 @@ const Produk = () => {
 
   const getProduct = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/produk`);
-      setProduk(result.data.data);
+      const result = await axios.get(`${import.meta.env.VITE_API_URL}/history`);
+      sethistory(result.data.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const filterData = produk.filter((item) =>
-    item.nama_barang?.toLowerCase().includes(search.toLowerCase()),
+  const filterData = history.filter((item) =>
+    item.user?.email?.toLowerCase().includes(search.toLowerCase()),
   );
 
   const ITEMS_PER_PAGE = 10;
@@ -37,11 +37,11 @@ const Produk = () => {
   }, [search]);
 
   const handleDelete = async (uuid) => {
-    const msg = window.confirm("Apakah yakin ingin menghapus produk ini?");
+    const msg = window.confirm("Apakah yakin ingin menghapus history ini?");
     if (!msg) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/produk/${uuid}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/history/${uuid}`);
       getProduct();
     } catch (error) {
       console.log(error);
@@ -51,8 +51,8 @@ const Produk = () => {
   return (
     <div>
       <div className="kategori-header">
-        <h3>Daftar Produk</h3>
-        <NavLink to={"/dashboard/produk/add"}>Tambah Produk</NavLink>
+        <h3>Daftar history</h3>
+        <NavLink to={"/dashboard/history/add"}>Tambah history</NavLink>
       </div>
 
       <div className="table-wrapper">
@@ -60,10 +60,13 @@ const Produk = () => {
           <thead>
             <tr>
               <th>No</th>
-              <th>Nama Barang</th>
-              <th>Stok</th>
-              <th>Minimal Stok</th>
-              <th>Kategori</th>
+              <th>Email</th>
+              <th>Username</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Action</th>
+              <th>Table</th>
+              <th>Value</th>
               <th>Gambar</th>
               <th>Aksi</th>
             </tr>
@@ -74,13 +77,20 @@ const Produk = () => {
               paginatedData.map((item, index) => (
                 <tr key={item.uuid}>
                   <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
-                  <td>{item.nama_barang}</td>
-                  <td>{item.stok}</td>
-                  <td>{item.min_stok}</td>
-                  <td>{item.jenis_produk_id}</td>
+
+                  <td>{item.user?.email}</td>
+                  <td>{item.user?.username}</td>
+                  <td>{item.user?.role}</td>
+                  <td>{item.user?.status}</td>
+
+                  <td>{item.action}</td>
+                  <td>{item.table}</td>
+                  <td>{item.value}</td>
+
                   <td>
-                    <img src={item.url} alt="gambar" width={100} />
+                    <img src={item.url} alt="gambar" width={80} />
                   </td>
+
                   <td>
                     <button>Edit</button>
                     <button onClick={() => handleDelete(item.uuid)}>
@@ -91,7 +101,7 @@ const Produk = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={7}>Data tidak ditemukan</td>
+                <td colSpan={10}>Data tidak ditemukan</td>
               </tr>
             )}
           </tbody>
@@ -132,4 +142,4 @@ const Produk = () => {
   );
 };
 
-export default Produk;
+export default History;
