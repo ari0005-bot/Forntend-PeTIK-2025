@@ -88,7 +88,7 @@ const History = () => {
                   <td>{item.value}</td>
 
                   <td>
-                    <img src={item.url} alt="gambar" width={80} />
+                    <img src={item.url || item.user?.url} alt="gambar" width={80} />
                   </td>
 
                   <td>
