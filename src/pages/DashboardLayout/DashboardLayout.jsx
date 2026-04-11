@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import MyNavbar from "../../components/MyNavbar/MyNavbar";
 import "./DashboardLayout.css";
@@ -6,6 +6,7 @@ import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   const [search, setSearch] = useState("");
+  useEffect(() => {});
 
   return (
     <div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, useOutletContext } from "react-router-dom";
+import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -8,6 +8,7 @@ const Kategori = () => {
   const [currentpage, setCurrentPage] = useState(1);
   const { search } = useOutletContext();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getProductCategories();
@@ -15,12 +16,21 @@ const Kategori = () => {
 
   const getProductCategories = async () => {
     setLoading(true);
+
+    // cara pertama untuk get data menggunakan JWT di axios
+    const token = localStorage.getItem("token");
+
     try {
       const result = await axios.get(
         `${import.meta.env.VITE_API_URL}/jenis-produk`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
       setCategories(result.data.data);
-      //   console.log(categories);
+      // console.log(categories);
     } catch (error) {
       console.log(error);
     } finally {
@@ -32,11 +42,9 @@ const Kategori = () => {
     return category.nama?.toLowerCase().includes(search.toLowerCase());
   });
 
-  // Untuk Mencari Total Halaman
   const ITEMS_PER_PAGE = 10;
   const totalPages = Math.ceil(filterData.length / ITEMS_PER_PAGE);
 
-  // slice(mulai, selesai)
   const paginatedData = filterData.slice(
     (currentpage - 1) * ITEMS_PER_PAGE,
     currentpage * ITEMS_PER_PAGE,
@@ -58,6 +66,17 @@ const Kategori = () => {
       console.log(error);
     }
   };
+
+  const handleEdit = (uuid) => {
+    navigate(`/dashboard/kategori/edit/${uuid}`);
+  };
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     navigate("/login", { replace: true });
+  //   }
+  // }, []);
 
   return (
     <div>
@@ -96,7 +115,9 @@ const Kategori = () => {
                       <img src={category.url} alt="gambar" width={120} />
                     </td>
                     <td>
-                      <button>Edit</button>
+                      <button onClick={() => handleEdit(category.uuid)}>
+                        Edit
+                      </button>
                       <button onClick={() => handleDelete(category.uuid)}>
                         Delete
                       </button>

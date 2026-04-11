@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { NavLink, useOutletContext } from "react-router-dom";
+import axiosInstance from "../../Untils/axiosInstance";
+import { NavLink, Link, useOutletContext } from "react-router-dom";
 
 const Pesanan = () => {
   const [pesanan, setpesanan] = useState([]);
   const [currentpage, setCurrentPage] = useState(1);
   const { search } = useOutletContext();
+
+  const formatRupiah = (amount) => {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0
+    }).format(amount);
+  };
 
   useEffect(() => {
     getProduct();
@@ -13,7 +21,7 @@ const Pesanan = () => {
 
   const getProduct = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/pesanan`);
+      const result = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/pesanan`);
       setpesanan(result.data.data);
     } catch (error) {
       console.log(error);
@@ -43,7 +51,7 @@ const Pesanan = () => {
     if (!msg) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/pesanan/${uuid}`);
+      await axiosInstance.delete(`${import.meta.env.VITE_API_URL}/pesanan/${uuid}`);
       getProduct();
     } catch (error) {
       console.log(error);
@@ -64,7 +72,7 @@ const Pesanan = () => {
               <th>No</th>
               <th>Tanggal</th>
               <th>Total</th>
-              <th>Pelanggan</th>
+              <th>Nama Pelanggan</th>
               <th>No HP</th>
               <th>Aksi</th>
             </tr>
@@ -76,12 +84,13 @@ const Pesanan = () => {
                 <tr key={item.uuid}>
                   <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
                   <td>{item.tanggal}</td>
-                  <td>{item.total}</td>
-                  <td>{item.pelanggan_id}</td>
-                  <td>{item.pelanggan?.nama}</td>
-
+                  <td>{formatRupiah(item.total)}</td>
+                  <td>{item.pelanggan?.nama || '-'}</td>
+                  <td>{item.pelanggan?.no_hp || '-'}</td>
                   <td>
-                    <button>Edit</button>
+                    <Link to={`/dashboard/pesanan/edit/${item.uuid}`}>
+                      <button>Edit</button>
+                    </Link>
                     <button onClick={() => handleDelete(item.uuid)}>
                       Delete
                     </button>
@@ -90,7 +99,7 @@ const Pesanan = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={7}>Data tidak ditemukan</td>
+                <td colSpan={6}>Data tidak ditemukan</td>
               </tr>
             )}
           </tbody>

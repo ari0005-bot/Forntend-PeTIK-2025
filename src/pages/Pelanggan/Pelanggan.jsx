@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { NavLink, useOutletContext } from "react-router-dom";
+import axiosInstance from "../../Untils/axiosInstance";
+import { NavLink, Link, useOutletContext } from "react-router-dom";
 
 const Pelanggan = () => {
   const [pelanggan, setPelanggan] = useState([]);
@@ -13,7 +13,7 @@ const Pelanggan = () => {
 
   const getProduct = async () => {
     try {
-      const result = await axios.get(
+      const result = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/pelanggan`,
       );
       setPelanggan(result.data.data);
@@ -46,7 +46,7 @@ const Pelanggan = () => {
     if (!msg) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/pelanggan/${uuid}`);
+      await axiosInstance.delete(`${import.meta.env.VITE_API_URL}/pelanggan/${uuid}`);
       getProduct();
     } catch (error) {
       console.log(error);
@@ -85,7 +85,9 @@ const Pelanggan = () => {
                   <td>{item.tgl_lahir}</td>
 
                   <td>
-                    <button>Edit</button>
+                    <Link to={`/dashboard/pelanggan/edit/${item.uuid}`}>
+                      <button>Edit</button>
+                    </Link>
                     <button onClick={() => handleDelete(item.uuid)}>
                       Delete
                     </button>

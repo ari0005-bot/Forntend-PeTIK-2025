@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { NavLink, useOutletContext } from "react-router-dom";
+import axiosInstance from "../../Untils/axiosInstance";
+import { NavLink, Link, useOutletContext } from "react-router-dom";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -13,7 +13,7 @@ const Users = () => {
 
   const getProduct = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/users`);
+      const result = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/users`);
       setUsers(result.data.data);
     } catch (error) {
       console.log(error);
@@ -83,7 +83,9 @@ const Users = () => {
                     <img src={item.url} alt="gambar" width={100} />
                   </td>
                   <td>
-                    <button>Edit</button>
+                    <Link to={`/dashboard/users/edit/${item.uuid}`}>
+                      <button>Edit</button>
+                    </Link>
                     <button onClick={() => handleDelete(item.uuid)}>
                       Delete
                     </button>

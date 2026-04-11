@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../Untils/axiosInstance";
 import { NavLink, useOutletContext } from "react-router-dom";
 
 const History = () => {
@@ -13,7 +13,7 @@ const History = () => {
 
   const getProduct = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/history`);
+      const result = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/history`);
       sethistory(result.data.data);
     } catch (error) {
       console.log(error);
@@ -41,7 +41,7 @@ const History = () => {
     if (!msg) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/history/${uuid}`);
+      await axiosInstance.delete(`${import.meta.env.VITE_API_URL}/history/${uuid}`);
       getProduct();
     } catch (error) {
       console.log(error);

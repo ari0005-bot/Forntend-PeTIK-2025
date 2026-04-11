@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { NavLink, useOutletContext } from "react-router-dom";
+import axiosInstance from "../../Untils/axiosInstance";
+import { NavLink, Link, useOutletContext } from "react-router-dom";
 
 const Kartu = () => {
   const [kartu, setkartu] = useState([]);
@@ -13,7 +13,7 @@ const Kartu = () => {
 
   const getProduct = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/kartu`);
+      const result = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/kartu`);
       setkartu(result.data.data);
     } catch (error) {
       console.log(error);
@@ -41,7 +41,7 @@ const Kartu = () => {
     if (!msg) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/kartu/${uuid}`);
+      await axiosInstance.delete(`${import.meta.env.VITE_API_URL}/kartu/${uuid}`);
       getProduct();
     } catch (error) {
       console.log(error);
@@ -81,7 +81,9 @@ const Kartu = () => {
                     <img src={item.url} alt="gambar" width={100} />
                   </td>
                   <td>
-                    <button>Edit</button>
+                    <Link to={`/dashboard/kartu/edit/${item.uuid}`}>
+                      <button>Edit</button>
+                    </Link>
                     <button onClick={() => handleDelete(item.uuid)}>
                       Delete
                     </button>
