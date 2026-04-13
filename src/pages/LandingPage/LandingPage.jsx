@@ -124,7 +124,7 @@ const LandingPage = () => {
         <div className="container">
           <h2>Produk Kami</h2>
           {loading ? (
-            <div className="loading">Memuat produk...</div>
+            <div className="loading">Memuat produk....</div>
           ) : (
             <div className="product-grid">
               {products.map((product) => (
