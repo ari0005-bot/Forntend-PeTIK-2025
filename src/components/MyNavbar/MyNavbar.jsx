@@ -1,7 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./MyNavbar.css";
+// import "./MyNavbar.css";
 import { GiShoppingCart } from "react-icons/gi";
 
 
@@ -31,7 +31,7 @@ const MyNavbar = ({ search, setSearch }) => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <div className="navbar-brand">
+        {/* <div className="navbar-brand">
           <div className="logo-circle">P</div>
           <Link to="/">Petik Niaga</Link>
         </div>
@@ -57,7 +57,7 @@ const MyNavbar = ({ search, setSearch }) => {
               Kontak
             </Link>
           </li>
-        </ul>
+        </ul> */}
 
         <div className="navbar-actions">
           <div className="search-box">

@@ -1,3 +1,4 @@
+import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import React, { useEffect, useState } from "react";
@@ -50,6 +51,41 @@ const Login = () => {
     }
   }, []);
 
+  const handleGoogleSuccess = async (CredentialResponse) => {
+    try {
+      const decode = jwtDecode(CredentialResponse.credential);
+      console.log("Login sebagai google berhasil", decode);
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/login/google`,
+        {
+          token: CredentialResponse.credential,
+        },
+      );
+
+      const token = response.data.token;
+      const decoded = jwtDecode(token);
+      // console.log(decoded);
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("loginType", "google");
+
+      if (decoded.role === "pelanggan") {
+        navigate("/");
+      } else {
+        navigate("/dashboard");
+      }
+
+      // console.log(response);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const handleGoogleError = () => {
+    console.log("Login google gagal");
+  };
+
   return (
     <div className="login-page">
       <div className="login-card">
@@ -73,7 +109,6 @@ const Login = () => {
               autoFocus
             />
           </div>
-
           <div className="login-field">
             <label htmlFor="password">Password</label>
             <input
@@ -84,10 +119,17 @@ const Login = () => {
               required
             />
           </div>
-
           <button type="submit" className="btn-login">
             Masuk
           </button>
+          <div>
+            <span>Atau masuk dengan google</span>
+          </div>
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+          />
+          ;
         </form>
       </div>
     </div>

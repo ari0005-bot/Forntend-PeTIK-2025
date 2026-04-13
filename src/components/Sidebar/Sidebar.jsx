@@ -1,6 +1,30 @@
+import { jwtDecode } from "jwt-decode";
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 const Sidebar = () => {
+  const token = localStorage.getItem("token");
+  const decoded = token ? jwtDecode(token) : null;
+  const role = decoded ? decoded.role : "admin";
+  console.log(role);
+
+  const menuAdmin = [
+    { to: "/dashboard", label: "Dashboard" },
+    { to: "/dashboard/pesanan", label: "Pesanan" },
+    { to: "/dashboard/produk", label: "Produk" },
+    { to: "/dashboard/kategori", label: "Kategori" },
+    { to: "/dashboard/pelanggan", label: "Pelanggan" },
+    { to: "/dashboard/kartu", label: "Kartu" },
+    { to: "/dashboard/history", label: "History" },
+  ];
+
+  const menuPelanggan = [
+    { to: "/dashboard", label: "Dashboard" },
+    { to: "/dashboard/pesanan", label: "Pesanan" },
+    { to: "/dashboard/history", label: "History" },
+  ];
+
+  const menuList = role === "pelanggan" ? menuPelanggan : menuAdmin;
+
   return (
     <div className="Sidebar">
       <div className="sidebar-logo">
@@ -8,30 +32,17 @@ const Sidebar = () => {
         <h3>PeTIK Niaga</h3>
       </div>
       <ul>
-        <li>
-          <NavLink to={"/dashboard"}>Dashboard</NavLink>
-        </li>
-        <li>
-          <NavLink to={"/dashboard/pesanan"}>Pesanan</NavLink>
-        </li>
-        <li>
-          <NavLink to={"/dashboard/produk"}>Produk</NavLink>
-        </li>
-        <li>
-          <NavLink to={"/dashboard/kategori"}>Kategori</NavLink>
-        </li>
-        <li>
-          <NavLink to={"/dashboard/pelanggan"}>Pelanggan</NavLink>
-        </li>
-        <li>
-          <NavLink to={"/dashboard/kartu"}>Kartu</NavLink>
-        </li>
-        <li>
-          <NavLink to={"/dashboard/users"}>User</NavLink>
-        </li>
-        <li>
-          <NavLink to={"/dashboard/history"}>History</NavLink>
-        </li>
+        {menuList.map((menu) => (
+          <li key={menu.to}>
+            <NavLink
+              to={menu.to}
+              className={({ isActive }) => (isActive ? "menuActive" : "menu")}
+              end={menu.to === "/dashboard"}
+            >
+              {menu.label}
+            </NavLink>
+          </li>
+        ))}
       </ul>
     </div>
   );

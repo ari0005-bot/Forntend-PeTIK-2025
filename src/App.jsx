@@ -23,12 +23,14 @@ import EditKartu from "./pages/Kartu/EditKartu";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Login from "./pages/Login/Login";
 import LandingPage from "./pages/LandingPage/LandingPage";
+import Checkout from "./pages/Checkout/Checkout";
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/checkout" element={<Checkout />} />
 
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
