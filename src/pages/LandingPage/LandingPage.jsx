@@ -6,9 +6,9 @@ import "./LandingPage.css";
 
 const LandingPage = () => {
   const [products, setProducts] = useState([]);
-  const [allProducts, setAllProducts] = useState([]); // ✅ TAMBAH INI
+  const [allProducts, setAllProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("all"); // ✅ konsisten
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -16,7 +16,6 @@ const LandingPage = () => {
     getCategories();
   }, []);
 
-  // ✅ FILTER FRONTEND
   useEffect(() => {
     if (selectedCategory === "all") {
       setProducts(allProducts);
@@ -112,10 +111,7 @@ const LandingPage = () => {
                 products.map((product) => (
                   <div key={product.id} className="product-card">
                     <div className="product-image">
-                      <img
-                        src={product.url || "https://via.placeholder.com/150"}
-                        alt={product.nama_barang}
-                      />
+                      <img src={product.url} alt={product.nama_barang} />
                     </div>
 
                     <div className="product-info">
