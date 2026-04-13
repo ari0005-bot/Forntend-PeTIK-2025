@@ -56,7 +56,7 @@ const LandingPage = () => {
   };
 
   const handleBeli = (product) => {
-    // Navigate to checkout with product data
+
     navigate(`/checkout?product=${JSON.stringify(product)}`);
   };
 
