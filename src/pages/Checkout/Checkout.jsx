@@ -93,7 +93,18 @@ const Checkout = () => {
               <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>
                 -
               </button>
-              <span>{quantity}</span>
+              <input 
+                type="number" 
+                value={quantity} 
+                onChange={(e) => {
+                  const value = parseInt(e.target.value);
+                  if (!isNaN(value) && value >= 1 && value <= product.stok) {
+                    setQuantity(value);
+                  }
+                }}
+                min="1"
+                max={product.stok}
+              />
               <button onClick={() => setQuantity(quantity + 1)}>+</button>
             </div>
           </div>

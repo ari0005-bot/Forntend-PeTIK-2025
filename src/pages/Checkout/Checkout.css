@@ -127,6 +127,26 @@
   border-radius: 20px;
 }
 
+.qty-box input {
+  width: 60px;
+  text-align: center;
+  border: none;
+  outline: none;
+  padding: 8px 0;
+  font-size: 16px;
+  font-weight: 500;
+  background: transparent;
+  color: #212529;
+  /* Hide spin buttons for number input */
+  -moz-appearance: textfield; /* Firefox */
+}
+
+.qty-box input::-webkit-outer-spin-button,
+.qty-box input::-webkit-inner-spin-button {
+  -webkit-appearance: none; /* Chrome, Safari, Edge */
+  margin: 0;
+}
+
 .qty-box button {
   background: none;
   border: none;
@@ -134,6 +154,7 @@
   font-weight: bold;
   cursor: pointer;
   color: #007bff;
+  padding: 0 8px;
 }
 
 .summary {
